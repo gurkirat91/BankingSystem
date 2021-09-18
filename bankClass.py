@@ -1,4 +1,5 @@
 import pickle
+import datetime
 class bank:
     def __init__(self) -> None:
         self.name=""
@@ -37,6 +38,7 @@ class bank:
         self.Acc[count]=l
         self.Acc["Pin"]=self.pin
         self.Acc["transfer details"]=[]
+        print("Account was created sucessfully\nYou can check your details by going on option 2 from the menu\n")
         f.close()
     
     def write(self):
@@ -45,7 +47,7 @@ class bank:
         f.close()
     
     def get(self,acc_no,p):
-        f=open("AccountDetails.dat","rb")
+        f=open("AccountDetails.dat","rb") 
         while True:
             try:
                 self.Acc=pickle.load(f)
@@ -56,12 +58,14 @@ class bank:
                         print(f"Phone No : {self.Acc[acc_no][2]}")
                         print(f"Balance  : {self.Acc[acc_no][3]}")
                         break
+                    else:
+                        print("....pin not correct.....")
             except EOFError:
                 print("no record found")
                 break
         f.close()
 
-    def update(self,acc_no,p):               #updatation
+    def update(self,acc_no,p):
         f=open("AccountDetails.dat","rb")
         l2=[]
         while True:
@@ -69,7 +73,7 @@ class bank:
                 self.Acc=pickle.load(f)
                 if acc_no in self.Acc.keys():
                     if p in self.Acc.values():
-                        print("what do you want to update\n1.Name\n2.Phone No\n3.both")
+                        print("what do you want to update\n1.Name\n2.Phone No\3.both")
                         ch=int(input())
                         if ch==1:
                             n=input("enter the new name\n")
@@ -109,7 +113,7 @@ class bank:
         else:
             print("record was not found")
 
-    def transfer(self,acc_no,p,tacc_no):               #transferring money
+    def transfer(self,acc_no,p,tacc_no):
         f=open("AccountDetails.dat","rb")
         l2=[]
         flag1=0
@@ -151,7 +155,9 @@ class bank:
                             if m<=int(self.Acc[acc_no][3]):
                                 money=int(self.Acc[acc_no][3])-m
                                 l3=[self.Acc[acc_no][0],self.Acc[acc_no][1],self.Acc[acc_no][2],money]
-                                t1=(f"transferred {m} to Account No-{tacc_no}") 
+                                x = datetime.datetime.now()
+                                a= str(x)+" "+str(x.strftime("%A"))
+                                t1=(f"transferred {m} to Account No-{tacc_no}   {a}") 
                                 t3=[]
                                 for i in self.Acc["transfer details"]:
                                     t3.append(i)
@@ -173,7 +179,7 @@ class bank:
                     if tacc_no in self.Acc.keys():
                         money2=int(self.Acc[tacc_no][3])+m
                         l4=[self.Acc[tacc_no][0],self.Acc[tacc_no][1],self.Acc[tacc_no][2],money2]
-                        t2=(f"recived {m} from Account no-{acc_no}")  
+                        t2=(f"recived {m} from Account No-{acc_no}   {a}")  
                         t4=[]
                         for i in self.Acc["transfer details"]:
                             t4.append(i)
@@ -204,28 +210,32 @@ class bank:
                 pickle.dump(i,f)
             f.close()
     
-    def getTransferDetails(self,acc_no,p):      
+    def getTransferDetails(self,acc_no,p):      #trasnfer detasils
         f=open("AccountDetails.dat","rb")
         while True:
             try:
                 self.Acc=pickle.load(f)
                 if acc_no in self.Acc.keys():
                     if p in self.Acc.values():
-                        print(".................................Account Information.................................")
-                        print(f"Account  : {self.Acc[acc_no][0]}")
+                        print("\033[1;36;40m .................................Account Information.................................")
+                        print(f"\033[1;37;40mAccount  : {self.Acc[acc_no][0]}")
                         print(f"Name     : {self.Acc[acc_no][1]}")
                         print(f"Phone No : {self.Acc[acc_no][2]}")
                         print(f"Balance  : {self.Acc[acc_no][3]}")
-                        print(".................................Transfer Details....................................")
+                        print("\033[1;36;40m .................................Transfer Details....................................")
                         for i in self.Acc["transfer details"]:
-                            print(i)
+                            if i[0]=="t":
+                                print(f"\033[1;31;40m {i}\n")
+                            elif i[0]=="r":
+                                print(f"\033[1;32;40m {i}\n")
                         break
+                    else:
+                        print("\033[1;32;40m .........pin not correct........")
             except EOFError:
                 print("no record found")
                 break
         f.close()
 
-    
 
         
 
