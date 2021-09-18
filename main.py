@@ -1,11 +1,12 @@
 import bankClass
 
-print(".........................................Hello Welcom To Bank........................................")
-print("selct any one of the following :\n1.Create new Account\n2.Get the Account details\n3.Transfer money\n4.Change your Account Info\n5.Get transfer details")
-c=int(input())
+print("\033[1;36;40m.........................................Hello Welcom To Bank........................................")
+
 choice="yes"
 b=bankClass.bank()
-while choice=="yes":
+while choice == "yes" or "y":       
+    c=int(input("\033[1;37;40m Selct any one of the following :\n1.Create new Account\n2.Get the Account details\n3.Transfer money\n4.Change your Account Info\n5.Get transfer details\n"))
+
     if c==1:
         b.create()
         b.write()
@@ -29,5 +30,6 @@ while choice=="yes":
     else:
         print("non correct option was selected\n")
 
-    choice=input("Do you want to continue(Yes/No)\n")
-    c=int(input("Selct any one of the following :\n1.Create new Account\n2.Get the Account details\n3.Transfer money\n4.Change your Account Info\n5.Get transfer details\n"))
+    choice=input("\033[1;37;40m Do you want to continue(Yes/No)\n")
+    if choice=="No"or "n":
+        break
