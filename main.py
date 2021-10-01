@@ -1,5 +1,5 @@
 import bankClass
-#simerlassi
+
 print("\033[1;36;40m.........................................Hello Welcom To Bank........................................")
 
 choice="yes"
