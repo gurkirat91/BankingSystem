@@ -15,22 +15,23 @@ class bank:
 
     def create(self):
         self.Acc = {}
+        
         print("please enter the details properly")
         name = input("enter the name\n")
         ph = input("enter the phone number\n")
         money = input("enter the initial money ammount\n")
-        if len(ph)<10 or len(ph)>10:
+        if len(ph) < 10 or len(ph) > 10:
             ph = input("last chance to enter the correct ph no format\n")
         else:
             self.name = name
             self.ph = ph
             self.money = money
             
-        f = open("Acc_holder_counter.txt","r")
+        f = open("Acc_holder_counter.txt", "r")
         c = f.readlines()
         f.close()
 
-        f2 = open("Acc_holder_counter.txt","a")
+        f2 = open("Acc_holder_counter.txt", "a")
         c2 = len(c)
         count = c2 + 1
         f2.write(str(count)+"\n")
@@ -38,7 +39,7 @@ class bank:
 
         print(f"your Account number is : {count}\n")
         p = input("enter a pin for your Account(4 digit)\n")
-        if len(p)<4 or len(p)>4:
+        if len(p) < 4 or len(p) > 4:
             print("please enter a correct pin(4 digits)\n")
         else:
             self.pin = p
@@ -48,15 +49,14 @@ class bank:
         self.Acc["Pin"] = self.pin
         self.Acc["transfer details"] = []
         print("Account was created sucessfully\nYou can check your details by going on option 2 from the menu\n")
-        f.close()
     
     def write(self):
-        f = open("AccountDetails.dat","ab")
-        pickle.dump(self.Acc,f)
+        f = open("AccountDetails.dat", "ab")
+        pickle.dump(self.Acc, f)
         f.close()
     
     def get(self, acc_no, p):
-        f = open("AccountDetails.dat","rb") 
+        f = open("AccountDetails.dat", "rb") 
         while True:
             try:
                 self.Acc = pickle.load(f)
@@ -75,7 +75,7 @@ class bank:
         f.close()
 
     def update(self, acc_no, p):
-        f = open("AccountDetails.dat","rb")
+        f = open("AccountDetails.dat", "rb")
         l2 = []
         while True:
             try:
@@ -85,10 +85,10 @@ class bank:
                         print("what do you want to update\n1.Name\n2.Phone No\3.both")
                         ch = int(input())
                         if ch == 1:
-                            n = input("enter the new name\n")
+                            new_name = input("enter the new name\n")
                             l3 = [
                                 self.Acc[acc_no][0], 
-                                n, 
+                                new_name, 
                                 self.Acc[acc_no][2],
                                 self.Acc[acc_no][3]
                             ]
@@ -101,11 +101,11 @@ class bank:
                                 self.Acc[acc_no][3]
                             ]
                         elif ch == 3:
-                            n = input("enter the new name\n")
+                            new_name = input("enter the new name\n")
                             newph = input("enter the new Phone No\n")
                             l3 = [
                                 self.Acc[acc_no][0], 
-                                n, 
+                                new_name, 
                                 newph, 
                                 self.Acc[acc_no][3]
                             ]
@@ -118,7 +118,7 @@ class bank:
         f.close()
         #for putting all records in list
         if flag == 1:
-            f = open("AccountDetails.dat","rb")
+            f = open("AccountDetails.dat", "rb")
             while True:
                 try:
                     self.Acc = pickle.load(f)
@@ -127,7 +127,7 @@ class bank:
                     break
             f.close()
         #putiiing the collected data into file back from list
-            f = open("AccountDetails.dat","wb")
+            f = open("AccountDetails.dat", "wb")
             for i in l2:
                 if acc_no in i:
                    i[acc_no] = l3
