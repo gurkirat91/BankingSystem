@@ -1,3 +1,4 @@
+#please approve for hacktober fest
 import pickle
 import datetime
 class bank:
@@ -103,6 +104,8 @@ class bank:
                     break
             f.close()
         #putiiing the collected data into file back from list
+        #putiiing the collected data into file back from list
+        
             f=open("AccountDetails.dat","wb")
             for i in l2:
                 if acc_no in i:
