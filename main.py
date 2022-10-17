@@ -1,7 +1,7 @@
 import bankClass
 import pandas as pd
 print("\033[1;36;40m.........................................Hello Welcom To Bank........................................")
-
+print("pls accept")
 choice="yes"
 b=bankClass.bank()
 while choice == "yes" or "y":       
